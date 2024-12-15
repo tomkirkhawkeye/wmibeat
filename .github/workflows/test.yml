@@ -7,7 +7,7 @@ permissions:
 
 jobs:
     scorecard_test:
-        runs-on:  ["self-hosted", "linux", "x64", "ubuntu-latest"]
+        runs-on:  ["ubuntu-latest"]
         continue-on-error: true
         steps:
             - name: checkout
