@@ -1,0 +1,28 @@
+name: Test scorecard actions runs
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+    scorecard_test:
+        runs-on:  ["self-hosted", "linux", "x64", "ubuntu-latest"]
+        continue-on-error: true
+        steps:
+            - name: checkout
+              uses: actions/checkout@v4
+            
+            - name: scorecard
+              uses: HawkEyeInnovations/actions/scorecard@main
+              with:
+                scorecard_version: "5.0.0"
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            
+            - name: Results
+              uses: actions/upload-artifact@v4
+              if: always()
+              with:
+                name: test
+                path: "./target_repo/results.json"
